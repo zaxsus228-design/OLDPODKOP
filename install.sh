@@ -15,15 +15,12 @@ main() {
         wget -q -O "$DOWNLOAD_DIR/$filename" "$url"
     done
 
-    echo "opkg update"
-    opkg update
-
     if opkg list-installed | grep -q dnsmasq-full; then
         echo "dnsmasq-full already installed"
     else
         echo "Installed dnsmasq-full"
-        cd /tmp/ && opkg download dnsmasq-full
-        opkg remove dnsmasq && apk add dnsmasq-full --cache /tmp/
+        cd /tmp/ && apk add dnsmasq-full
+        apk del dnsmasq && apk add dnsmasq-full --cache /tmp/
 
         [ -f /etc/config/dhcp-opkg ] && cp /etc/config/dhcp /etc/config/dhcp-old && mv /etc/config/dhcp-opkg /etc/config/dhcp
     fi
