@@ -15,7 +15,7 @@ main() {
         wget -q -O "$DOWNLOAD_DIR/$filename" "$url"
     done
 
-    if opkg list-installed | grep -q dnsmasq-full; then
+    if apk info | grep -q dnsmasq-full; then
         echo "dnsmasq-full already installed"
     else
         echo "Installed dnsmasq-full"
